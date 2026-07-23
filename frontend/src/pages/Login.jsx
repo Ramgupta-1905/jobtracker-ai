@@ -1,5 +1,9 @@
 function Login() {
-  return <h1>Login Page</h1>;
+  return (
+    <h1 className="text-white text-5xl">
+      Login Page
+    </h1>
+  );
 }
 
 export default Login;
