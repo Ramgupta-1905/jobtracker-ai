@@ -4,6 +4,7 @@ import Hero from "./pages/Hero";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
+import MainLayout from "./layouts/MainLayout";
 
 function App() {
   return (
@@ -23,7 +24,10 @@ function App() {
 
       <Route path="/signup" element={<Signup />} />
 
-      <Route path="/dashboard" element={<Dashboard />} />
+      {/* Protected Layout */}
+      <Route element={<MainLayout />}>
+        <Route path="/dashboard" element={<Dashboard />} />
+      </Route>
     </Routes>
   );
 }
