@@ -6,6 +6,8 @@ import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
 import MainLayout from "./layouts/MainLayout";
 import Profile from "./pages/Profile";
+import ResumeVault from "./pages/ResumeVault";
+import Settings from "./pages/Settings"
 
 function App() {
   return (
@@ -29,6 +31,8 @@ function App() {
       <Route element={<MainLayout />}>
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="profile" element={<Profile />} />
+        <Route path="resume-vault" element={<ResumeVault />} />
+        <Route path="settings" element={<Settings />} />
       </Route>
     </Routes>
   );

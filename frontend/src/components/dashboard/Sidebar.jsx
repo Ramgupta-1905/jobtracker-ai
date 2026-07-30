@@ -15,7 +15,6 @@ const navItems = [
   { title: "Applications", icon: Briefcase, path: "/applications" },
   { title: "Resume Vault", icon: FileText, path: "/resume-vault" },
   { title: "Interviews", icon: Calendar, path: "/interviews" },
-  { title: "Analytics", icon: BarChart3, path: "/analytics" },
   { title: "Settings", icon: Settings, path: "/settings" },
   { title: "Profile", icon: CircleUser, path: "/profile" },
 ];
