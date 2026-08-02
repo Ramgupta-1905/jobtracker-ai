@@ -14,6 +14,13 @@ export default function Signup() {
     <div className="min-h-screen flex items-center justify-center bg-slate-950 p-4">
       <div className="w-full max-w-md rounded-2xl border border-slate-800 bg-slate-900 p-8 shadow-xl">
 
+        <Link
+          to="/"
+          className="mb-6 self-start text-slate-400 transition hover:text-blue-500"
+        >
+          ← Back to Home
+        </Link>
+
         {/* Branding */}
         <div className="mb-8 flex flex-col items-center">
           <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-2xl bg-blue-600 text-4xl font-bold shadow-lg">
