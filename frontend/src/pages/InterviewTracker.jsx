@@ -14,7 +14,7 @@ import {
   FileText,
   MoreVertical,
 } from "lucide-react";
-import AddInterviewModal from "../components/AddInterviewModal";
+import AddInterviewModal from "../components/Interview/AddInterviewModal";
 const initialInterviews = [
   {
     id: 1,
