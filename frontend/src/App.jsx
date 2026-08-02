@@ -9,6 +9,7 @@ import Profile from "./pages/Profile";
 import ResumeVault from "./pages/ResumeVault";
 import Settings from "./pages/Settings"
 import Interviews from "./pages/InterviewTracker";
+import Application from "./pages/Applications";
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
         <Route path="resume-vault" element={<ResumeVault />} />
         <Route path="settings" element={<Settings />} />
         <Route path="interviews" element={<Interviews />} />
+         <Route path="applications" element={<Application />} />
       </Route>
     </Routes>
   );
