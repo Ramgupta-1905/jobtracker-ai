@@ -36,12 +36,26 @@ function Profile() {
     <main className="min-h-screen bg-blue-50 p-8">
       <div className="mx-auto max-w-7xl">
         {/* Page Heading */}
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold text-gray-900">Profile</h1>
-          <p className="mt-2 text-gray-600">
-            Manage your personal and academic information.
-          </p>
-        </div>
+        {/* Hero Section */}
+<div className="mb-8 rounded-3xl bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 px-8 py-6 shadow-lg">
+  <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+
+    <div>
+      <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-100">
+        Account Management
+      </p>
+
+      <h1 className="mt-2 text-5xl font-bold text-white">
+        👤 My Profile
+      </h1>
+
+      <p className="mt-4 max-w-2xl text-lg text-blue-100">
+        Manage your personal, academic, and professional information to keep your JobTrack AI profile up to date.
+      </p>
+    </div>
+
+  </div>
+</div>
 
         <div className="grid gap-8 lg:grid-cols-3">
           {/* Left Column */}
@@ -105,6 +119,7 @@ function Profile() {
                   type="text"
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
+                  placeholder="Search and add your skills..."
                   className="w-full rounded-lg border border-gray-300 p-3 focus:border-blue-500 focus:outline-none"
                 />
 
@@ -162,12 +177,25 @@ function Profile() {
                   <input type="text" className="w-full rounded-lg border border-gray-300 p-3 focus:border-blue-500 focus:outline-none" />
                 </div>
 
-                <div className="md:col-span-2">
-                  <label className="mb-2 block text-sm font-medium text-gray-700">
-                    Location
-                  </label>
-                  <input type="text" className="w-full rounded-lg border border-gray-300 p-3 focus:border-blue-500 focus:outline-none" />
-                </div>
+                <div>
+  <label className="mb-2 block text-sm font-medium text-gray-700">
+    City
+  </label>
+  <input
+    type="text"
+    className="w-full rounded-lg border border-gray-300 p-3 focus:border-blue-500 focus:outline-none"
+  />
+</div>
+
+<div>
+  <label className="mb-2 block text-sm font-medium text-gray-700">
+    State
+  </label>
+  <input
+    type="text"
+    className="w-full rounded-lg border border-gray-300 p-3 focus:border-blue-500 focus:outline-none"
+  />
+</div>
               </div>
             </div>
 
@@ -223,7 +251,9 @@ function Profile() {
               <label className="mb-2 block text-sm font-medium text-gray-700">
                 Description
               </label>
-              <textarea rows={5} className="w-full rounded-lg border border-gray-300 p-3 focus:border-blue-500 focus:outline-none"></textarea>
+              <textarea rows={5} 
+              placeholder="Tell recruiters about yourself, your skills, projects, achievements, and career goals..."
+              className="w-full rounded-lg border border-gray-300 p-3 focus:border-blue-500 focus:outline-none"></textarea>
             </div>
 
            {/* Social Links */}
