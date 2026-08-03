@@ -126,47 +126,82 @@ export default function InterviewTracker() {
 
   return (
     <div className="space-y-8 px-8 py-8">
-      {/* Header */}
-      <div className="flex items-start justify-between">
-        <div>
-          <h1 className="text-3xl font-bold text-gray-900">Interview Tracker</h1>
-          <p className="mt-1 text-gray-500">
-            Track every interview, stay organized, and never miss an opportunity.
-          </p>
-        </div>
-        <button 
-        onClick={() => setIsModalOpen(true)}
-        className="flex items-center gap-2 rounded-xl bg-blue-600 px-5 py-3 font-medium text-white transition hover:bg-blue-700">
-          <Plus size={18} />
-          Add Interview
-        </button>
-      </div>
-    
+    {/* Hero Section */}
+<div className="mb-2 rounded-3xl bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 px-8 py-6 shadow-lg">
+  <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
 
-      {/* Stats Cards */}
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-4">
-        {stats.map((item) => {
-          const Icon = item.icon;
-          return (
-            <div
-              key={item.title}
-              className="flex items-center justify-between rounded-2xl border border-gray-200 bg-white p-5 shadow-sm"
-            >
-              <div>
-                <p className="text-sm text-gray-500">{item.title}</p>
-                <h2 className="mt-1 text-2xl font-bold text-gray-900">
-                  {item.value}
-                </h2>
-              </div>
-              <div
-                className={`flex h-12 w-12 items-center justify-center rounded-xl ${item.bg}`}
-              >
-                <Icon className={item.color} size={22} />
-              </div>
-            </div>
-          );
-        })}
-      </div>
+    {/* Left */}
+    <div className="flex-1">
+      <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-100">
+        Interview Management
+      </p>
+
+      <h1 className="mt-2 text-5xl font-bold text-white">
+        💼 Interview Tracker
+      </h1>
+
+      <p className="mt-4 max-w-2xl text-lg text-blue-100">
+        Manage technical rounds, HR interviews, online assessments, and keep
+        every interview organized in one place.
+      </p>
+    </div>
+
+    {/* Right */}
+    <div className="flex flex-col items-start gap-4 lg:items-end">
+      <button
+        onClick={() => setIsModalOpen(true)}
+        className="flex items-center gap-2 rounded-2xl bg-white px-6 py-4 font-semibold text-blue-600 shadow-md transition hover:scale-105"
+      >
+        <Plus size={20} />
+        Add Interview
+      </button>
+    </div>
+
+  </div>
+
+  {/* Stats */}
+  <div className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-4">
+
+    <div className="rounded-2xl bg-white/15 p-5 backdrop-blur-md">
+      <p className="text-sm text-blue-100">Upcoming</p>
+      <h2 className="mt-1 text-3xl font-bold text-white">
+        {interviews.filter((i) => i.status === "Scheduled").length}
+      </h2>
+    </div>
+
+    <div className="rounded-2xl bg-white/15 p-5 backdrop-blur-md">
+      <p className="text-sm text-blue-100">Today</p>
+      <h2 className="mt-1 text-3xl font-bold text-white">
+        {
+          interviews.filter(
+            (i) =>
+              i.date ===
+              new Date().toLocaleDateString("en-GB", {
+                day: "2-digit",
+                month: "short",
+                year: "numeric",
+              })
+          ).length
+        }
+      </h2>
+    </div>
+
+    <div className="rounded-2xl bg-white/15 p-5 backdrop-blur-md">
+      <p className="text-sm text-blue-100">Completed</p>
+      <h2 className="mt-1 text-3xl font-bold text-white">
+        {interviews.filter((i) => i.status === "Completed").length}
+      </h2>
+    </div>
+
+    <div className="rounded-2xl bg-white/15 p-5 backdrop-blur-md">
+      <p className="text-sm text-blue-100">Cancelled</p>
+      <h2 className="mt-1 text-3xl font-bold text-white">
+        {interviews.filter((i) => i.status === "Cancelled").length}
+      </h2>
+    </div>
+
+  </div>
+</div>
 
       {/* Search Toolbar */}
       <div className="flex flex-col gap-4 rounded-2xl border border-gray-200 bg-white p-4 shadow-sm md:flex-row md:items-center md:justify-between">
@@ -180,7 +215,7 @@ export default function InterviewTracker() {
             placeholder="Search interviews..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full rounded-xl border border-gray-200 py-3 pl-11 pr-4 outline-none transition focus:border-blue-500"
+            className="w-full rounded-xl border border-gray-200 py-1 pl-11 pr-4 outline-none transition focus:border-blue-500"
           />
         </div>
         <div className="flex items-center gap-2">
@@ -188,7 +223,7 @@ export default function InterviewTracker() {
   <select
     value={filter}
     onChange={(e) => setFilter(e.target.value)}
-    className="rounded-xl border px-3 py-2 text-sm text-gray-700 transition focus:border-blue-500"
+    className="rounded-xl border px-3 py-1 text-sm text-gray-700 transition focus:border-blue-500"
   >
     <option value="All">All</option>
     <option value="Scheduled">Upcoming</option>
@@ -200,20 +235,11 @@ export default function InterviewTracker() {
   {/* Sort Button */}
   <button
     onClick={() => setSortOrder(sortOrder === "asc" ? "desc" : "asc")}
-    className="rounded-xl border p-3 transition hover:bg-gray-100"
+    className="rounded-xl border py-1 transition hover:bg-gray-100"
   >
     <ArrowUpDown size={18} />
   </button>
 
-  {/* Grid Toggle */}
-  <button
-    onClick={() => setView("grid")}
-    className={`rounded-xl border p-3 transition ${
-      view === "grid" ? "bg-blue-600 text-white" : "hover:bg-gray-100"
-    }`}
-  >
-    <LayoutGrid size={18} />
-  </button>
 </div>
 
       </div>

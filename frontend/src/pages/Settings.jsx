@@ -35,129 +35,256 @@ export default function Settings() {
   };
 
   return (
-    <div className="max-w-3xl mx-auto p-8 space-y-8">
-      {/* Header */}
-      <div>
-        <h1 className="text-2xl font-semibold flex items-center gap-2">
-          ⚙ Settings
-        </h1>
-        <p className="text-gray-500">
-          Customize your JobTrack AI workspace and preferences.
-        </p>
+    <div className="mx-auto max-w-5xl space-y-6 p-8">
+        {/* Hero Section */}
+<div className="rounded-3xl bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 px-8 py-6 shadow-lg">
+  <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+    <div>
+      <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-100">
+        Preferences & Security
+      </p>
+
+      <h1 className="mt-2 text-4xl font-bold text-white lg:text-5xl">
+        ⚙ Settings
+      </h1>
+
+      <p className="mt-4 max-w-2xl text-lg text-blue-100">
+        Customize your workspace, manage account security, notifications, and
+        personalize your AI experience.
+      </p>
+    </div>
+  </div>
+</div>
+
+<Card
+  icon={<Palette size={20} />}
+  color="bg-blue-100"
+  title="Appearance"
+  desc="Customize the look and feel of your workspace."
+>
+  <div className="space-y-3">
+    {["Light", "Dark", "System"].map((option) => (
+      <label
+        key={option}
+        className="flex cursor-pointer items-center gap-3 rounded-xl border border-transparent p-3 transition hover:border-blue-100 hover:bg-blue-50"
+      >
+        <input
+          type="radio"
+          name="theme"
+          value={option.toLowerCase()}
+          checked={theme === option.toLowerCase()}
+          onChange={() => setTheme(option.toLowerCase())}
+        />
+
+        <span className="font-medium text-gray-700">{option}</span>
+      </label>
+    ))}
+  </div>
+</Card>
+
+<Card
+  icon={<Lock size={20} />}
+  color="bg-red-100"
+  title="Change Password"
+  desc="Update your password to keep your account secure."
+>
+  <div className="space-y-5">
+
+    <Input
+      label="Current Password"
+      type="password"
+      placeholder="Enter your current password"
+      value={currentPassword}
+      onChange={setCurrentPassword}
+    />
+
+    <Input
+      label="New Password"
+      type="password"
+      placeholder="Create a new password"
+      value={newPassword}
+      onChange={setNewPassword}
+    />
+
+    <Input
+      label="Confirm Password"
+      type="password"
+      placeholder="Re-enter your new password"
+      value={confirmPassword}
+      onChange={setConfirmPassword}
+    />
+
+    <button
+      onClick={handlePasswordUpdate}
+      className="rounded-xl bg-blue-600 px-6 py-3 font-semibold text-white transition hover:bg-blue-700"
+    >
+      Update Password
+    </button>
+
+    {passwordMessage && (
+      <p className="text-sm font-medium text-gray-600">
+        {passwordMessage}
+      </p>
+    )}
+
+  </div>
+</Card>
+
+<Card
+  icon={<Bell size={20} />}
+  color="bg-amber-100"
+  title="Notifications"
+  desc="Control how and when you receive updates."
+>
+  <div className="space-y-2">
+
+    <Toggle
+      label="Email Updates"
+      enabled={notifications.email}
+      onChange={(val) =>
+        setNotifications({ ...notifications, email: val })
+      }
+    />
+
+    <Toggle
+      label="Interview Reminders"
+      enabled={notifications.interview}
+      onChange={(val) =>
+        setNotifications({ ...notifications, interview: val })
+      }
+    />
+
+    <Toggle
+      label="Weekly Summary"
+      enabled={notifications.weekly}
+      onChange={(val) =>
+        setNotifications({ ...notifications, weekly: val })
+      }
+    />
+
+    <Toggle
+      label="Product Updates"
+      enabled={notifications.updates}
+      onChange={(val) =>
+        setNotifications({ ...notifications, updates: val })
+      }
+    />
+
+  </div>
+</Card>
+
+<Card
+  icon={<Cpu size={20} />}
+  color="bg-purple-100"
+  title="AI Preferences"
+  desc="Personalize how the AI assistant responds."
+>
+  <div className="space-y-6">
+
+    <Pills
+      label="AI Response Style"
+      options={["Short", "Balanced", "Detailed"]}
+      selected={aiStyle}
+      onSelect={setAiStyle}
+    />
+
+    <Pills
+      label="Communication Tone"
+      options={[
+        "Professional",
+        "Friendly",
+        "Formal",
+        "Creative",
+      ]}
+      selected={aiTone}
+      onSelect={setAiTone}
+    />
+
+  </div>
+</Card>
+
+<Card
+  icon={<HelpCircle size={20} />}
+  color="bg-green-100"
+  title="Help & Support"
+  desc="Find answers or get in touch with our support team."
+>
+  <div className="divide-y divide-gray-100">
+
+    {[
+      { icon: "❓", label: "Help Center" },
+      { icon: "💬", label: "Contact Support" },
+      { icon: "🐞", label: "Report a Bug" },
+      { icon: "💡", label: "Send Feedback" },
+      { icon: "ℹ️", label: "About JobTrack AI" },
+    ].map((item) => (
+      <div
+        key={item.label}
+        className="flex cursor-pointer items-center justify-between py-4 transition hover:text-blue-600"
+      >
+        <div className="flex items-center gap-3">
+          <span className="text-lg">{item.icon}</span>
+          <span className="font-medium">{item.label}</span>
+        </div>
+
+        <span className="text-gray-400">›</span>
       </div>
+    ))}
 
-      {/* 1️⃣ Appearance */}
-      <Card icon={<Palette />} color="bg-blue-100" title="Appearance" desc="Customize the look of your workspace.">
-        <div className="space-y-2">
-          {["Light", "Dark", "System"].map((opt) => (
-            <label key={opt} className="flex items-center gap-2 cursor-pointer">
-              <input
-                type="radio"
-                name="theme"
-                value={opt.toLowerCase()}
-                checked={theme === opt.toLowerCase()}
-                onChange={() => setTheme(opt.toLowerCase())}
-              />
-              {opt}
-            </label>
-          ))}
-        </div>
-      </Card>
+  </div>
+</Card>
 
-      {/* 2️⃣ Change Password */}
-      <Card icon={<Lock />} color="bg-red-100" title="Change Password" desc="Keep your account secure.">
-        <div className="space-y-4">
-          <Input label="Current Password" type="password" value={currentPassword} onChange={setCurrentPassword} />
-          <Input label="New Password" type="password" value={newPassword} onChange={setNewPassword} />
-          <Input label="Confirm Password" type="password" value={confirmPassword} onChange={setConfirmPassword} />
-
-          <button
-            onClick={handlePasswordUpdate}
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
-          >
-            Update Password
-          </button>
-
-          {passwordMessage && (
-            <p className="text-sm mt-2 font-medium text-gray-700">{passwordMessage}</p>
-          )}
-        </div>
-      </Card>
-
-      {/* 3️⃣ Notifications */}
-      <Card icon={<Bell />} color="bg-amber-100" title="Notifications" desc="Manage your notifications.">
-        {Object.entries(notifications).map(([key, value]) => (
-          <Toggle
-            key={key}
-            label={key.replace(/^\w/, (c) => c.toUpperCase()) + " Notifications"}
-            enabled={value}
-            onChange={(val) => setNotifications({ ...notifications, [key]: val })}
-          />
-        ))}
-      </Card>
-
-      {/* 4️⃣ AI Preferences */}
-      <Card icon={<Cpu />} color="bg-purple-100" title="AI Preferences" desc="Customize AI behavior.">
-        <div className="space-y-4">
-          <Pills
-            label="AI Response Style"
-            options={["Short", "Balanced", "Detailed"]}
-            selected={aiStyle}
-            onSelect={setAiStyle}
-          />
-          <Pills
-            label="Preferred Tone"
-            options={["Professional", "Friendly", "Formal", "Creative"]}
-            selected={aiTone}
-            onSelect={setAiTone}
-          />
-        </div>
-      </Card>
-
-      {/* 5️⃣ Help & Support */}
-      <Card icon={<HelpCircle />} color="bg-green-100" title="Help & Support">
-        {["Help Center", "Contact Support", "Report a Bug", "Send Feedback", "About JobTrack AI"].map((item) => (
-          <div
-            key={item}
-            className="flex justify-between items-center py-3 px-2 hover:bg-gray-50 rounded-lg cursor-pointer transition"
-          >
-            <span>{item}</span>
-            <span className="transform transition-transform group-hover:translate-x-1">›</span>
-          </div>
-        ))}
-      </Card>
     </div>
   );
 }
 
-/* 🔹 Reusable Components */
-
 function Card({ icon, color, title, desc, children }) {
   return (
-    <div className="bg-white rounded-2xl shadow-sm p-6 hover:shadow-md transition">
-      <div className="flex items-center gap-3 mb-2">
-        <div className={`w-8 h-8 flex items-center justify-center rounded-full ${color}`}>
+    <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-md">
+      <div className="mb-5 flex items-start gap-4">
+        <div
+          className={`flex h-11 w-11 items-center justify-center rounded-xl ${color}`}
+        >
           {icon}
         </div>
+
         <div>
-          <h2 className="font-semibold">{title}</h2>
-          {desc && <p className="text-sm text-gray-500">{desc}</p>}
+          <h2 className="text-lg font-semibold text-gray-800">
+            {title}
+          </h2>
+
+          {desc && (
+            <p className="mt-1 text-sm text-gray-500">
+              {desc}
+            </p>
+          )}
         </div>
       </div>
+
       {children}
     </div>
   );
 }
 
-function Input({ label, type, value, onChange }) {
+function Input({
+  label,
+  type,
+  placeholder,
+  value,
+  onChange,
+}) {
   return (
     <div>
-      <label className="block text-sm font-medium mb-1">{label}</label>
+      <label className="mb-2 block text-sm font-medium text-gray-700">
+        {label}
+      </label>
+
       <input
         type={type}
+        placeholder={placeholder}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 outline-none"
+        className="w-full rounded-xl border border-gray-300 bg-slate-50 px-4 py-3 outline-none transition-all duration-200 focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-100"
       />
     </div>
   );
@@ -165,17 +292,20 @@ function Input({ label, type, value, onChange }) {
 
 function Toggle({ label, enabled, onChange }) {
   return (
-    <div className="flex justify-between items-center py-2">
-      <span>{label}</span>
+    <div className="flex items-center justify-between rounded-xl border border-transparent px-2 py-3 transition hover:bg-gray-50">
+      <span className="font-medium text-gray-700">
+        {label}
+      </span>
+
       <button
         onClick={() => onChange(!enabled)}
-        className={`w-12 h-6 flex items-center rounded-full p-1 transition ${
+        className={`flex h-7 w-14 items-center rounded-full p-1 transition ${
           enabled ? "bg-blue-600" : "bg-gray-300"
         }`}
       >
         <div
-          className={`bg-white w-4 h-4 rounded-full shadow transform transition ${
-            enabled ? "translate-x-6" : ""
+          className={`h-5 w-5 rounded-full bg-white shadow transition ${
+            enabled ? "translate-x-7" : ""
           }`}
         />
       </button>
@@ -183,22 +313,30 @@ function Toggle({ label, enabled, onChange }) {
   );
 }
 
-function Pills({ label, options, selected, onSelect }) {
+function Pills({
+  label,
+  options,
+  selected,
+  onSelect,
+}) {
   return (
     <div>
-      <p className="text-sm font-medium mb-2">{label}</p>
-      <div className="flex gap-2 flex-wrap">
-        {options.map((opt) => (
+      <p className="mb-3 text-sm font-medium text-gray-700">
+        {label}
+      </p>
+
+      <div className="flex flex-wrap gap-3">
+        {options.map((option) => (
           <button
-            key={opt}
-            onClick={() => onSelect(opt)}
-            className={`px-4 py-1 rounded-full border transition ${
-              selected === opt
-                ? "bg-blue-600 text-white border-blue-600"
-                : "bg-white text-gray-700 border-gray-300 hover:bg-gray-50"
+            key={option}
+            onClick={() => onSelect(option)}
+            className={`rounded-full border px-5 py-2 text-sm font-medium transition ${
+              selected === option
+                ? "border-blue-600 bg-blue-600 text-white"
+                : "border-gray-300 bg-white text-gray-700 hover:border-blue-300 hover:bg-blue-50"
             }`}
           >
-            {opt}
+            {option}
           </button>
         ))}
       </div>

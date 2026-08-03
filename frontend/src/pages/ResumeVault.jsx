@@ -82,89 +82,112 @@ export default function ResumeVault() {
 
   return (
     <div className="p-8">
-      {/* Header */}
-      <div className="flex items-center justify-between mb-8">
-        <div>
-          <h1 className="text-3xl font-bold text-gray-700">Resume Vault</h1>
-          <p className="text-gray-600 mt-2">
-            Manage and organize multiple resumes tailored for different job roles.
-          </p>
-        </div>
+      {/* Hero Section */}
+<div className="mb-2 rounded-3xl bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 p-8 shadow-lg">
+  <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+    <div>
+     
+      <h1 className="mt-2 text-5xl font-bold text-white">
+        📄 Resume Vault
+      </h1>
 
-        <button
-          onClick={() => setShowModal(true)}
-          className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-5 py-3 rounded-xl font-medium transition"
-        >
-          <Upload size={18} />
-          Upload Resume
-        </button>
-      </div>
+      <p className="mt-4 max-w-2xl text-lg text-blue-100">
+        Organize multiple resume versions, prepare role-specific resumes, and
+        keep every application ready with your personal resume library.
+      </p>
+    </div>
 
-      {/* Search + Sort */}
-      <div className="flex justify-between items-center mb-8">
-        <div className="relative w-96">
-          <Search
-            size={18}
-            className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
-          />
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search resumes..."
-            className="w-full bg-white border border-slate-300 rounded-xl py-3 pl-10 pr-4 outline-none focus:border-blue-500"
-          />
-        </div>
+    <button
+      onClick={() => setShowModal(true)}
+      className="flex items-center justify-center gap-2 rounded-2xl bg-white px-6 py-4 font-semibold text-blue-600 shadow-md transition hover:scale-105"
+    >
+      <Upload size={20} />
+      Upload Resume
+    </button>
+  </div>
+</div>
+      
+      {/* Search Toolbar */}
+<div className="mb-3 rounded-2xl bg-white p-2 shadow-md">
+  <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
 
-        <select
-          value={sortOrder}
-          onChange={(e) => setSortOrder(e.target.value)}
-          className="bg-white border border-slate-300 px-5 py-3 rounded-xl hover:bg-gray-50 transition"
-        >
-          <option value="newest">Sort by Newest</option>
-          <option value="oldest">Sort by Oldest</option>
-          <option value="title">Sort by Title</option>
-        </select>
-      </div>
+    <div className="relative w-full lg:max-w-lg">
+      <Search
+        size={18}
+        className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
+      />
+
+      <input
+        type="text"
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+        placeholder="Search by title, filename or job role..."
+        className="w-full rounded-xl border border-slate-300 bg-gray-50 py-1 pl-11 pr-4 outline-none transition focus:border-blue-500 focus:bg-white"
+      />
+    </div>
+
+    <select
+      value={sortOrder}
+      onChange={(e) => setSortOrder(e.target.value)}
+      className="rounded-xl border border-slate-300 bg-gray-50 px-5 py-1 outline-none transition hover:bg-white"
+    >
+      <option value="newest">Newest First</option>
+      <option value="oldest">Oldest First</option>
+      <option value="title">A → Z</option>
+    </select>
+
+  </div>
+</div>
 
       {/* Resume Grid */}
-      {sortedResumes.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
-          {sortedResumes.map((resume) => (
-            <div
-              key={resume.id}
-              className="bg-white border border-slate-300 rounded-2xl p-5 hover:border-blue-500 hover:-translate-y-1 hover:shadow-lg transition duration-300"
-            >
-              <div className="flex justify-center my-4">
-                <FileText size={70} className="text-red-500" />
-              </div>
-
-              <h2 className="font-semibold text-lg text-center text-gray-800">
-                {resume.title}
-              </h2>
-
-              <p className="text-gray-500 text-sm text-center mt-2">
-                {resume.fileName}
-              </p>
-
-              <p className="text-xs text-gray-400 text-center mt-5">
-                Uploaded •{" "}
-                {resume.uploaded.toLocaleDateString("en-GB", {
-                  day: "2-digit",
-                  month: "short",
-                  year: "numeric",
-                })}
-              </p>
-            </div>
-          ))}
+{sortedResumes.length > 0 ? (
+  <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4">
+    {sortedResumes.map((resume) => (
+      <div
+        key={resume.id}
+        className="group rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:border-blue-500 hover:shadow-xl"
+      >
+        {/* Resume Icon */}
+        <div className="mb-5 flex justify-center">
+          <div className="rounded-2xl bg-red-50 p-5 transition group-hover:bg-red-100">
+            <FileText size={70} className="text-red-500" />
+          </div>
         </div>
-      ) : (
-        <div className="text-center mt-10 text-gray-500">
-          <FileText size={50} className="mx-auto mb-4 text-gray-400" />
-          <p className="font-medium">No resumes found</p>
-          <p className="text-sm">Try changing your search or upload a new resume.</p>
+
+        {/* Title */}
+        <h2 className="text-center text-lg font-semibold text-gray-800">
+          {resume.title}
+        </h2>
+
+        {/* File Name */}
+        <p className="mt-2 truncate text-center text-sm text-gray-500">
+          {resume.fileName}
+        </p>
+
+        {/* Upload Date */}
+        <div className="mt-5 border-t border-gray-100 pt-4">
+          <p className="text-center text-xs text-gray-400">
+            Uploaded •{" "}
+            {resume.uploaded.toLocaleDateString("en-GB", {
+              day: "2-digit",
+              month: "short",
+              year: "numeric",
+            })}
+          </p>
         </div>
-      )}
+      </div>
+    ))}
+  </div>
+) : (
+  <div className="mt-10 text-center text-gray-500">
+    <FileText size={50} className="mx-auto mb-4 text-gray-400" />
+    <p className="font-medium">No resumes found</p>
+    <p className="text-sm">
+      Try changing your search or upload a new resume.
+    </p>
+  </div>
+)}
+
 
       {/* Upload Modal */}
       {showModal && (
@@ -207,17 +230,17 @@ export default function ResumeVault() {
 
             <div className="flex justify-end gap-3 mt-8">
               <button
-                onClick={() => setShowModal(false)}
-                className="px-5 py-2 rounded-lg border border-slate-300 hover:bg-gray-100 transition"
-              >
-                Cancel
-              </button>
+  onClick={() => setShowModal(false)}
+  className="rounded-xl border border-slate-300 px-6 py-3 transition hover:bg-gray-100"
+>
+  Cancel
+</button>
               <button
-                onClick={handleUpload}
-                className="px-5 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white transition"
-              >
-                Upload
-              </button>
+  onClick={handleUpload}
+  className="rounded-xl bg-blue-600 px-6 py-3 font-medium text-white transition hover:bg-blue-700"
+>
+  Upload Resume
+</button>
             </div>
           </div>
         </div>
