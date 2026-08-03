@@ -3,6 +3,7 @@ import {
   Video,
   ArrowRight,
 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const interviews = [
   {
@@ -22,6 +23,8 @@ const interviews = [
 ];
 
 export default function UpcomingInterviews() {
+  const navigate = useNavigate();
+
   return (
     <div className="rounded-2xl bg-white p-5 shadow-sm border border-gray-100">
       {/* Header */}
@@ -46,7 +49,8 @@ export default function UpcomingInterviews() {
         {interviews.map((item) => (
           <div
             key={item.id}
-            className="rounded-xl border border-gray-100 p-3 hover:bg-gray-50 transition"
+            onClick={() => navigate("/interviews")}
+            className="cursor-pointer rounded-xl border border-gray-100 p-3 transition hover:border-blue-200 hover:bg-gray-50"
           >
             <div className="flex items-center justify-between">
               <div>
@@ -78,10 +82,13 @@ export default function UpcomingInterviews() {
         ))}
       </div>
 
-      <button className="mt-5 flex w-full items-center justify-center gap-2 rounded-xl border border-gray-200 py-2 text-sm font-medium text-gray-600 transition hover:bg-gray-50">
-        View Schedule
-        <ArrowRight size={16} />
-      </button>
+      <button
+  onClick={() => navigate("/interviews")}
+  className="mt-5 flex w-full items-center justify-center gap-2 rounded-xl border border-gray-200 py-2 text-sm font-medium text-gray-600 transition hover:bg-gray-50"
+>
+  View Schedule
+  <ArrowRight size={16} />
+</button>
     </div>
   );
 }

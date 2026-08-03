@@ -1,6 +1,8 @@
 import { Eye, SquarePen, MoreHorizontal } from "lucide-react";
 
-export default function RecentApplication() {
+export default function RecentApplication({
+  onViewAll,
+  }) {
   function getStatusStyle(status) {
     switch (status) {
       case "Applied":
@@ -88,9 +90,12 @@ export default function RecentApplication() {
           </p>
         </div>
 
-        <button className="text-sm font-medium text-blue-600 transition hover:text-blue-700">
-          View All
-        </button>
+        <button
+  onClick={onViewAll}
+  className="rounded-lg border border-gray-200 px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-100"
+>
+  View All
+</button>
       </div>
 
       <hr className="my-4 border-gray-200" />

@@ -1,53 +1,116 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import WelcomeCard from "../components/dashboard/WelcomeCard";
 import AddApplications from "../components/dashboard/AddApplications";
 import MiniCalendar from "../components/dashboard/MiniCalendar";
 import NeedsAttention from "../components/dashboard/NeedsAttention";
-import QuickStats from "../components/dashboard/QuickStats";
 import RecentApplication from "../components/dashboard/RecentApplication";
 import UpcomingInterviews from "../components/dashboard/UpcomingInterview";
 import ActivityFeed from "../components/dashboard/ActivityFeed";
 import AIAssistant from "../components/dashboard/AIAssistant";
 
 function Dashboard() {
-  return (
-    <div>
-     
-      {/* Dashboard content scrolls */}
-      <div className="flex-1 overflow-y-auto bg-gray-100 text-gray-900 p-8">
-        {/* Top Row: Welcome + Add Application + Calendar */}
-        <div className="grid grid-cols-3 gap-6 mb-6">
-          <div className="col-span-2 flex flex-col gap-6">
-            <WelcomeCard name="Ram" />
-            <AddApplications />
-          </div>
-          <div>
-            <MiniCalendar />
-          </div>
-        </div>
+  const navigate = useNavigate();
 
-        {/* Bottom Row: Needs Attention (wide) + Quick Stats (compact) */}
-        <div className="grid grid-cols-3 gap-6 mb-6">
-          <div className="col-span-2">
-            <NeedsAttention />
-          </div>
-          <div>
-            <QuickStats />
-          </div>
-        </div>
+  // Later this object will come from:
+  // GET /api/dashboard
+  const [dashboardData] = useState({
+    user: {
+      id: 1,
+      name: "Ram",
+    },
 
-        {/* Applications Table */}
-        <div>
-          <RecentApplication />
-        </div>
+    recentApplications: [],
+    upcomingInterviews: [],
+    needsAttention: [],
+    activities: [],
+    calendarEvents: [],
+  });
 
-        <div className="mt-6 grid grid-cols-3 gap-6">
-          <ActivityFeed />
+  const [loading] = useState(false);
+  const [error] = useState(null);
 
-          <UpcomingInterviews />
+  const handleAddApplication = () => {
+    navigate("/applications");
+  };
 
-          <AIAssistant />
+  const handleViewApplications = () => {
+    navigate("/applications");
+  };
+
+  const handleViewInterviews = () => {
+    navigate("/interviews");
+  };
+
+  if (loading) {
+    return (
+      <div className="flex min-h-[80vh] items-center justify-center">
+        <p className="text-lg font-medium text-gray-600">
+          Loading dashboard...
+        </p>
       </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex min-h-[80vh] items-center justify-center">
+        <p className="font-medium text-red-500">
+          Failed to load dashboard.
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-gray-100 p-6 lg:p-8">
+      <div className="space-y-6">
+
+        {/* Hero Section */}
+        <section className="rounded-3xl bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 p-8 shadow-xl">
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1.8fr_1fr] items-start">
+            <div className="flex flex-col gap-6">
+              <WelcomeCard user={dashboardData.user} />
+
+              <AddApplications onClick={handleAddApplication} />
+            </div>
+
+            <MiniCalendar events={dashboardData.calendarEvents} />
+          </div>
+        </section>
+
+        {/* Dashboard Highlights */}
+        <section className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+
+          <NeedsAttention
+            tasks={dashboardData.needsAttention}
+          />
+
+          <UpcomingInterviews
+            interviews={dashboardData.upcomingInterviews}
+            onViewAll={handleViewInterviews}
+            onInterviewClick={handleViewInterviews}
+          />
+
+          <ActivityFeed
+            activities={dashboardData.activities}
+          />
+
+        </section>
+
+        {/* Recent Applications */}
+        <RecentApplication
+          applications={dashboardData.recentApplications}
+          onViewAll={handleViewApplications}
+          onApplicationClick={handleViewApplications}
+        />
+
+        {/* AI Assistant */}
+        <section>
+          <AIAssistant />
+        </section>
+
       </div>
     </div>
   );
