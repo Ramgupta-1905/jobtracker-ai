@@ -1,16 +1,74 @@
-# React + Vite
+# 🚀 JobTrack AI
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An AI-powered job application tracking platform that helps students and job seekers organize applications, manage resumes, track interviews, and streamline their placement journey through a modern and intuitive interface.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## ✨ Features
 
-## React Compiler
+- 📊 Interactive Dashboard
+- 💼 Job Application Management
+- 📄 Resume Vault
+- 🎤 Interview Tracker
+- 👤 User Profile
+- ⚙️ Settings & Preferences
+- 🔐 User Authentication
+- 📱 Responsive Design
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 🛠 Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Frontend
+- React.js
+- Vite
+- Tailwind CSS
+- React Router DOM
+- Lucide React
+
+### Planned
+- Spring Boot
+- PostgreSQL
+- Spring Security (JWT)
+- AI Integration
+
+---
+
+## 🚀 Installation
+
+```bash
+git clone https://github.com/Ramgupta-1905/JobTrack-AI.git
+
+cd JobTrack-AI
+
+npm install
+
+npm run dev
+```
+
+The application runs at:
+
+```text
+http://localhost:5173
+```
+
+---
+
+## 🎯 Future Enhancements
+
+- Backend Integration
+- JWT Authentication
+- PostgreSQL Database
+- AI Resume Analysis
+- ATS Resume Scoring
+- Cover Letter Generator
+- AI Interview Preparation
+
+---
+
+## 👨‍💻 Author
+
+**Ram Gupta**
+
+- 💻 GitHub: https://github.com/Ramgupta-1905
+- 💼 LinkedIn: https://www.linkedin.com/in/ram-g190406
