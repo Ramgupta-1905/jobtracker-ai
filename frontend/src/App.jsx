@@ -10,6 +10,7 @@ import ResumeVault from "./pages/ResumeVault";
 import Settings from "./pages/Settings"
 import Interviews from "./pages/InterviewTracker";
 import Application from "./pages/Applications";
+import AIAssistant from "./pages/AIAssistant";
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
         <Route path="settings" element={<Settings />} />
         <Route path="interviews" element={<Interviews />} />
          <Route path="applications" element={<Application />} />
+         <Route path="/ai-assistant" element={<AIAssistant />} />
       </Route>
     </Routes>
   );
