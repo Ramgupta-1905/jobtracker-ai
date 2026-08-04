@@ -41,10 +41,6 @@ function Profile() {
   <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
 
     <div>
-      <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-100">
-        Account Management
-      </p>
-
       <h1 className="mt-2 text-5xl font-bold text-white">
         👤 My Profile
       </h1>
