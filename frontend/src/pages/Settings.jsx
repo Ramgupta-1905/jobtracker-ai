@@ -40,10 +40,7 @@ export default function Settings() {
 <div className="rounded-3xl bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 px-8 py-6 shadow-lg">
   <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
     <div>
-      <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-100">
-        Preferences & Security
-      </p>
-
+    
       <h1 className="mt-2 text-4xl font-bold text-white lg:text-5xl">
         ⚙ Settings
       </h1>
