@@ -7,6 +7,7 @@ import {
   Settings,
   LogOut,
   CircleUser,
+  Bot,
 } from "lucide-react";
 import { NavLink, useNavigate } from "react-router-dom";
 
@@ -15,6 +16,7 @@ const navItems = [
   { title: "Applications", icon: Briefcase, path: "/applications" },
   { title: "Resume Vault", icon: FileText, path: "/resume-vault" },
   { title: "Interviews", icon: Calendar, path: "/interviews" },
+  { title: "AI Assistant",icon: Bot,path: "/ai-assistant"},
   { title: "Settings", icon: Settings, path: "/settings" },
   { title: "Profile", icon: CircleUser, path: "/profile" },
 ];
