@@ -132,10 +132,6 @@ export default function InterviewTracker() {
 
     {/* Left */}
     <div className="flex-1">
-      <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-100">
-        Interview Management
-      </p>
-
       <h1 className="mt-2 text-5xl font-bold text-white">
         💼 Interview Tracker
       </h1>
