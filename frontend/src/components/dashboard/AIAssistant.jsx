@@ -1,6 +1,8 @@
 import { Sparkles, ArrowRight } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export default function AIAssistant() {
+  const navigate = useNavigate();
   return (
     <div className="rounded-2xl bg-white p-5 shadow-sm border border-gray-100">
       {/* Header */}
@@ -46,7 +48,9 @@ export default function AIAssistant() {
       </div>
 
       {/* CTA */}
-      <button className="mt-5 flex w-full items-center justify-center gap-2 rounded-xl bg-violet-600 py-3 text-sm font-medium text-white transition hover:bg-violet-700">
+      <button 
+      onClick={() => navigate("/ai-assistant")}
+      className="mt-5 flex w-full items-center justify-center gap-2 rounded-xl bg-violet-600 py-3 text-sm font-medium text-white transition hover:bg-violet-700">
         Ask AI
         <ArrowRight size={16} />
       </button>
