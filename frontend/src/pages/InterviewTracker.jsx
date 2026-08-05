@@ -13,6 +13,8 @@ import {
   Monitor,
   FileText,
   MoreVertical,
+  Pencil,
+  Trash2,
 } from "lucide-react";
 import AddInterviewModal from "../components/Interview/AddInterviewModal";
 const initialInterviews = [
@@ -57,6 +59,7 @@ export default function InterviewTracker() {
   const [sortOrder, setSortOrder] = useState("asc");
   const [filter, setFilter] = useState("All");
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingInterview, setEditingInterview] = useState(null);
   const [interviews, setInterviews] = useState(initialInterviews);
 
 
@@ -66,7 +69,7 @@ export default function InterviewTracker() {
   const matchesSearch = [i.company, i.role, i.notes]
     .join(" ")
     .toLowerCase()
-    .includes(search.toLowerCase());
+    .startsWith(search.toLowerCase());
 
   const matchesFilter =
     filter === "All" ? true : i.status === filter;
@@ -122,6 +125,23 @@ export default function InterviewTracker() {
     },
   ];
 
+const handleDeleteInterview = (id) => {
+  const confirmed = window.confirm(
+    "Are you sure you want to delete this interview?"
+  );
+
+  if (!confirmed) return;
+
+  setInterviews((prev) =>
+    prev.filter((interview) => interview.id !== id)
+  );
+};
+
+const handleEditInterview = (interview) => {
+  setEditingInterview(interview);
+  setIsModalOpen(true);
+};
+
 
 
   return (
@@ -145,7 +165,10 @@ export default function InterviewTracker() {
     {/* Right */}
     <div className="flex flex-col items-start gap-4 lg:items-end">
       <button
-        onClick={() => setIsModalOpen(true)}
+        onClick={() => {
+  setEditingInterview(null);
+  setIsModalOpen(true);
+}}
         className="flex items-center gap-2 rounded-2xl bg-white px-6 py-4 font-semibold text-blue-600 shadow-md transition hover:scale-105"
       >
         <Plus size={20} />
@@ -328,10 +351,23 @@ export default function InterviewTracker() {
           )}
         </div>
 
-        {/* Three-dot menu at bottom-right */}
-        <button className="rounded-full p-2 text-gray-500 hover:bg-gray-100">
-          <MoreVertical className="h-5 w-5" />
+        {/* Edit and delete */}
+        <div className="flex items-center gap-1">
+            
+        <button
+          onClick={() => handleEditInterview(interview)}
+          className="rounded-lg p-2 text-blue-600 transition hover:bg-blue-50"
+        >
+          <Pencil size={18} />
         </button>
+        <button
+          onClick={() => handleDeleteInterview(interview.id)}
+          className="rounded-lg p-2 text-red-600 transition hover:bg-red-50"
+        >
+          <Trash2 size={18} />
+        </button>
+
+</div>
       </div>
     </div>
   ))}
@@ -339,18 +375,36 @@ export default function InterviewTracker() {
 
 {isModalOpen && (
   <AddInterviewModal
-    onClose={() => setIsModalOpen(false)}
-  />
-)}
-{isModalOpen && (
-  <AddInterviewModal
-    onClose={() => setIsModalOpen(false)}
-    onAdd={(newInterview) =>
-      setInterviews((prev) => [
-        ...prev,
-        { id: prev.length + 1, ...newInterview },
-      ])
-    }
+    interview={editingInterview}
+    onClose={() => {
+      setIsModalOpen(false);
+      setEditingInterview(null);
+    }}
+    onAdd={(interviewData) => {
+      if (editingInterview) {
+        setInterviews((prev) =>
+          prev.map((interview) =>
+            interview.id === editingInterview.id
+              ? {
+                  ...interviewData,
+                  id: editingInterview.id,
+                }
+              : interview
+          )
+        );
+      } else {
+        setInterviews((prev) => [
+          ...prev,
+          {
+            id: Date.now(),
+            ...interviewData,
+          },
+        ]);
+      }
+
+      setEditingInterview(null);
+      setIsModalOpen(false);
+    }}
   />
 )}
     </div>

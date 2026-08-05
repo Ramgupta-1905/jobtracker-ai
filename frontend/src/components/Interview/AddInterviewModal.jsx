@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { X } from "lucide-react";
 
-export default function AddInterviewModal({ onClose, onAdd }) {
-  const [form, setForm] = useState({
+export default function AddInterviewModal({ interview, onClose, onAdd }) {
+ 
+  const [form, setForm] = useState(
+  interview || {
     company: "",
     role: "",
     date: "",
@@ -11,7 +13,8 @@ export default function AddInterviewModal({ onClose, onAdd }) {
     status: "Upcoming",
     outcome: "",
     notes: "",
-  });
+  }
+);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -34,7 +37,9 @@ export default function AddInterviewModal({ onClose, onAdd }) {
       <div className="w-full max-w-md max-h-[75vh] overflow-y-auto rounded-2xl bg-white p-6 shadow-xl">
         {/* Header */}
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-semibold text-gray-900">Add Interview</h2>
+          <h2 className="text-lg font-semibold text-gray-900">
+  {interview ? "Edit Interview" : "Add Interview"}
+</h2>
           <button
             onClick={onClose}
             className="rounded-full p-2 text-gray-500 hover:bg-gray-100"
@@ -192,7 +197,7 @@ export default function AddInterviewModal({ onClose, onAdd }) {
               type="submit"
               className="rounded-xl bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
             >
-              Add Interview
+              {interview ? "Save Changes" : "Add Interview"}
             </button>
           </div>
         </form>

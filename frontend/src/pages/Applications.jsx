@@ -172,10 +172,10 @@ skills: [
       const search = filters.search.toLowerCase();
 
       const matchesSearch =
-        application.company.toLowerCase().includes(search) ||
-        application.role.toLowerCase().includes(search) ||
-        application.city.toLowerCase().includes(search) ||
-        application.state.toLowerCase().includes(search);
+        application.company.toLowerCase().startsWith(search) ||
+        application.role.toLowerCase().startsWith(search) ||
+        application.city.toLowerCase().startsWith(search) ||
+        application.state.toLowerCase().startsWith(search);
 
       const matchesStatus =
         filters.status === "All Status" ||
@@ -298,10 +298,26 @@ const handleEditApplication = (application) => {
       )
     );
   } else {
-    setApplications((prev) => [
-      ...prev,
-      applicationData,
-    ]);
+    const duplicate = applications.some(
+  (application) =>
+    application.company.toLowerCase() ===
+      applicationData.company.toLowerCase() &&
+    application.role.toLowerCase() ===
+      applicationData.role.toLowerCase()
+);
+
+if (duplicate) {
+  alert("This application already exists.");
+  return;
+}
+
+setApplications((prev) => [
+  ...prev,
+  {
+    ...applicationData,
+    id: Date.now(),
+  },
+]);
   }
 
   setEditingApplication(null);

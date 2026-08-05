@@ -3,7 +3,10 @@ import {
   Search,
   Upload,
   FileText,
+  Pencil,
+  Trash2,
 } from "lucide-react";
+import RenameResumeModal from "../components/resume/RenameResumeModal";
 
 export default function ResumeVault() {
   const [resumes, setResumes] = useState([
@@ -36,6 +39,8 @@ export default function ResumeVault() {
   const [showModal, setShowModal] = useState(false);
   const [resumeTitle, setResumeTitle] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
+  const [showRenameModal, setShowRenameModal] = useState(false);
+const [selectedResume, setSelectedResume] = useState(null);
   const fileInputRef = useRef(null);
 
   const [searchQuery, setSearchQuery] = useState("");
@@ -60,6 +65,36 @@ export default function ResumeVault() {
     if (fileInputRef.current) fileInputRef.current.value = ""; // reset file input
     setShowModal(false);
   };
+
+  const handleRenameResume = (newTitle) => {
+  setResumes((prev) =>
+    prev.map((resume) =>
+      resume.id === selectedResume.id
+        ? {
+            ...resume,
+            title: newTitle,
+          }
+        : resume
+    )
+  );
+
+  setShowRenameModal(false);
+  setSelectedResume(null);
+};
+
+const handleDeleteResume = (id) => {
+  const confirmed = window.confirm(
+    "Are you sure you want to delete this resume?"
+  );
+
+  if (!confirmed) return;
+
+  setResumes((prev) =>
+    prev.filter((resume) => resume.id !== id)
+  );
+};
+
+
 
   // ✅ Efficient search + sort with useMemo
   const sortedResumes = useMemo(() => {
@@ -163,7 +198,26 @@ export default function ResumeVault() {
         <p className="mt-2 truncate text-center text-sm text-gray-500">
           {resume.fileName}
         </p>
+        <div className="mt-4 flex justify-center gap-2">
 
+  <button
+    onClick={() => {
+      setSelectedResume(resume);
+      setShowRenameModal(true);
+    }}
+    className="rounded-lg p-2 text-blue-600 transition hover:bg-blue-50"
+  >
+    <Pencil size={18} />
+  </button>
+
+  <button
+  onClick={() => handleDeleteResume(resume.id)}
+  className="rounded-lg p-2 text-red-600 transition hover:bg-red-50"
+>
+  <Trash2 size={18} />
+</button>
+
+</div>
         {/* Upload Date */}
         <div className="mt-5 border-t border-gray-100 pt-4">
           <p className="text-center text-xs text-gray-400">
@@ -245,6 +299,17 @@ export default function ResumeVault() {
           </div>
         </div>
       )}
+{showRenameModal && (
+  <RenameResumeModal
+    resume={selectedResume}
+    onClose={() => {
+      setShowRenameModal(false);
+      setSelectedResume(null);
+    }}
+    onRename={handleRenameResume}
+  />
+)}
+
     </div>
   );
 }

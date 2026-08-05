@@ -56,7 +56,14 @@ function Hero(props) {
           </button>
 
           <button
-            className="rounded-2xl border border-white/30 bg-white/10 px-8 py-4 text-lg font-semibold backdrop-blur-md transition duration-300 hover:bg-white/20"
+             onClick={() => {
+            document
+              .getElementById("features")
+              ?.scrollIntoView({
+                behavior: "smooth",
+              });
+          }}
+          className="rounded-2xl border border-white/30 bg-white/10 px-8 py-4 text-lg font-semibold backdrop-blur-md transition duration-300 hover:bg-white/20"
           >
             Learn More
           </button>
@@ -89,7 +96,9 @@ function Hero(props) {
         </div>
 
         {/* Why JobTrack AI */}
-        <div className="mt-24 grid max-w-6xl gap-6 md:grid-cols-2">
+        <div 
+        id="features"
+        className="mt-24 grid max-w-6xl gap-6 md:grid-cols-2">
                     {/* Feature Card 1 */}
           <div className="group rounded-3xl border border-white/20 bg-white/10 p-8 backdrop-blur-xl transition-all duration-300 hover:-translate-y-2 hover:bg-white/15 hover:shadow-2xl">
             <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-500/20">
