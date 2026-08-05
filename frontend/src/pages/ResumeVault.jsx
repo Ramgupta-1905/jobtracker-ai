@@ -6,7 +6,7 @@ import {
   Pencil,
   Trash2,
 } from "lucide-react";
-import RenameResumeModal from "../components/resume/RenameResumeModal";
+import RenameResumeModal from "../components/Resume/RenameResumeModal";
 
 export default function ResumeVault() {
   const [resumes, setResumes] = useState([
